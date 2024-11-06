@@ -1,70 +1,106 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 💡 더컴퍼스 국민대학교 2024년도 동계 인턴쉽 챌린지 [프론트엔드] - 20213015 송규원
 
-## Available Scripts
+![image](https://github.com/user-attachments/assets/aaa89322-2351-484c-b742-868d20b422dd)
 
-In the project directory, you can run:
+## 1. 프로젝트 설치 및 실행 방법
 
-### `npm start`
+### 1) 레포지토리 복제
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+git clone https://github.com/gyuwonsong/TheCompass-Assignment.git
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2) npm 설치
 
-### `npm test`
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3) npm 실행
 
-### `npm run build`
+```bash
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 2. 프로젝트 구조
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+TheCompass-Assignment
+├── .gitignore
+├── README.md
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+├── public
+│   ├── index.html
+│   └── (기타 정적 파일)
+└── src
+    ├── App.css
+    ├── App.js
+    ├── components
+    │   └── (개별 컴포넌트 파일들)
+    ├── data
+    │   └── (데이터 관련 파일들)
+    ├── index.css
+    └── index.js
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 3. 주요 기능
 
-### `npm run eject`
+- **컴포넌트 기반 구조** : `src/components` 폴더에 있는 개별 컴포넌트
+- **Tailwind CSS 스타일링** : `tailwind.config.js` 및 `postcss.config.js`를 사용한 스타일링 설정
+- **React Router** : 페이지 간 라우팅 처리
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 4. 기술 스택
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **React** - UI 라이브러리
+- **Tailwind CSS** - 유틸리티 중심의 CSS 프레임워크
+- **PostCSS** - CSS 빌드 도구
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 5. 문제 해결 및 디버깅
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 1) 문제 상황
 
-## Learn More
+- React 프로젝트에서 *"Duplicate form field id in the same form"*  에러 발생. 해당 오류는 동일한 `id` 속성을 여러 개의 폼 필드에서 사용했을 때 나타남.
+- 이 프로젝트에서는 기존에 `TaskItem` 컴포넌트에서 태스크의 상태를 선택하는 `<select>` 요소에 동일한 `id` 속성 (`id="status"`)을 사용. 이로 인해 여러 개의 `<select>` 요소가 동일한 `id`를 공유하게 되었고, 중복 `id`로 인해 오류가 발생한 것으로 파악됨.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 2) 문제 원인
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **중복된 `id` 사용** : `TaskItem` 컴포넌트가 한 프로젝트가 가진 여러 태스크를 렌더링하면서 각각의 `<select>` 요소에 `id="status"` 속성이 중복 사용되었음을 확인함.
+- **React의 컴포넌트 반복 구조** : React에서 컴포넌트를 반복하여 렌더링할 때 같은 `id`를 사용하는 요소들이 여러 번 생성되면서 브라우저가 폼 필드를 구분하지 못해 문제 상황 발생 가능성이 있음.
 
-### Code Splitting
+### 3) 문제 해결
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **고유한 동적 `id` 할당**
 
-### Analyzing the Bundle Size
+   각 `<select>` 요소에 `id`를 동적으로 설정하여 중복을 방지. 각 태스크의 `id`를 활용하여 `<select>` 요소마다 고유한 `id`를 부여하여 해결함.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. **디버깅 과정**
+    - 브라우저 콘솔에 출력된 *"duplicate same field id in same form"* 이슈 확인
+    - `TaskItem` 컴포넌트에서 동일한 `id="status"`가 반복되는 것을 발견
+    - 각 태스크마다 고유한 `id`를 할당하기 위해 `taskData.id`를 활용해 동적 `id`로 설정하는 방식으로 수정
 
-### Making a Progressive Web App
+### 4) 수정된 코드 예시
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```jsx
+<div>
+    <label htmlFor={`status-${taskData.id}`} className="text-gray-600 mr-2">상태 :</label>
+    <select
+        id={`status-${taskData.id}`} // 고유한 id 설정
+        value={taskData.status}
+        onChange={handleStatusChange}
+        className="p-1 border border-gray-300 rounded-xl"
+        disabled={taskData.status === "done"}
+    >
+        <option value="not-started">시작 전</option>
+        <option value="in-progress">진행 중</option>
+        <option value="done">완료</option>
+    </select>
+</div>
 
-### Advanced Configuration
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `id`와 `htmlFor` 속성을 각각 `status-${taskData.id}`와 같은 고유한 값으로 설정
+- 이를 통해 `<select>` 요소마다 고유한 `id`가 적용되어 중복 오류 해결
