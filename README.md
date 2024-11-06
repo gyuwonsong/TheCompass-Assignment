@@ -30,6 +30,7 @@ npm start
 TheCompass-Assignment
 ├── .gitignore
 ├── README.md
+├── common.zip (알고리즘 과제 압축파일)
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
