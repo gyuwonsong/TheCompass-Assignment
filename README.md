@@ -3,6 +3,7 @@
 
 ![image](https://github.com/user-attachments/assets/aaa89322-2351-484c-b742-868d20b422dd)
 
+<br><br/>
 ## 1. 프로젝트 설치 및 실행 방법
 
 ### 1) 레포지토리 복제
@@ -22,7 +23,7 @@ npm install
 ```bash
 npm start
 ```
-
+<br><br/>
 ## 2. 프로젝트 구조
 
 ```
@@ -46,19 +47,21 @@ TheCompass-Assignment
     ├── index.css
     └── index.js
 ```
-
+<br><br/>
 ## 3. 주요 기능
 
 - **컴포넌트 기반 구조** : `src/components` 폴더에 있는 개별 컴포넌트
 - **Tailwind CSS 스타일링** : `tailwind.config.js` 및 `postcss.config.js`를 사용한 스타일링 설정
 - **React Router** : 페이지 간 라우팅 처리
 
+<br><br/>
 ## 4. 기술 스택
 
 - **React** - UI 라이브러리
 - **Tailwind CSS** - 유틸리티 중심의 CSS 프레임워크
 - **PostCSS** - CSS 빌드 도구
 
+<br><br/>
 ## 5. 문제 해결 및 디버깅
 
 ### 1) 문제 상황
